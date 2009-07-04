@@ -1,0 +1,13 @@
+body {
+	margin-top: 100px;
+}
+
+.status { 
+	width: 50%;
+	border-style: solid;
+	text-align: justify;
+	margin: 0 auto;
+	font-size: 2em;
+	line-height: 1.2em;
+	padding: 40px 40px 40px 40px;
+}

@@ -1,0 +1,113 @@
+.main {
+	padding: 5px;
+	margin: 0px;
+	font-size: 62.5%;
+	font-family: HelveticaNeue, Helvetica, Arial, sans-serif;
+}
+
+.title-header {
+	margin: 150px 0px 20px;
+	padding: 0px;
+	color: #1C6191;
+	font-weight: bold;
+	font-size: 15em;
+}
+
+.title-text {
+	font-size: 2em;
+	width: 42em;
+	line-height: 1.2em;
+}
+
+.signin-link {
+	color: black;
+	line-height: 5em;
+}
+
+.container {
+	padding-top: 20px;
+	width: 890px;
+	margin: 0 auto;
+	padding-bottom: 2px;
+}
+
+.top-panel {
+	height: 100px;
+}
+
+.em-mail {
+	color: #1C6191;
+}
+
+.logo {
+	font-weight: bolder;
+	font-size: 6em;
+}
+
+.line-border {
+	width: 100%;
+	color: black;
+	background-color: black;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.gwt-MenuItem {
+	background-color: black;
+	color: white;
+	font-size: 18px;
+	padding: 5px;
+	cursor: pointer;
+}
+
+.gwt-MenuItem-selected {
+	background-color: #FFFFFF;
+	color: #1C6191;
+}
+
+.content-form {
+	padding-left: 30px;
+}
+
+.content-title {
+	background: #E0EDFE;
+	font-weight: bolder;
+	font-size: 1.5em;
+}
+
+.content-desc {
+	font-size: 1em;
+}
+
+.content-namespace {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.dialog-body>p {
+	text-align: justify;
+}
+
+.sample-url {
+	white-space: nowrap;
+	font-style: italic; 
+}
+
+.error-text {
+	color: red;
+}
+
+.success-text {
+	color: green;
+}
+
+.button-style {
+	background-color: #E0EDFE;
+	text-align: center;
+	font-weight: bold; 
+}
+
+.content-button {
+	padding: 5px 5px 5px 5px;
+	cursor: pointer; 
+}
