@@ -135,9 +135,12 @@ public class Mails {
 
     public static void send(final Outgoing mail) throws AddressException,
             MessagingException {
-        send(mail.getSender(), mail.getRecipient(), mail.getSubject(), mail
-                .getMessage()
-                + "\n\n\n" + mail.getSignature());
+        String message = mail.getMessage();
+        String signature = mail.getSignature();
+        if (signature != null && !signature.trim().isEmpty()) {
+            message += ("\n\n\n" + signature);
+        }
+        send(mail.getSender(), mail.getRecipient(), mail.getSubject(), message);
     }
 
     private static void send(final String from, final String to,
