@@ -194,7 +194,7 @@ public class DialogFactory {
         buttons.setCellHorizontalAlignment(buttonPanel,
                 HorizontalPanel.ALIGN_LEFT);
 
-        button = new Label("This isn't for me");
+        button = new Label("Sign me out forever!");
         button.setStyleName("button-style");
         button.addClickHandler(new ClickHandler() {
             @Override
