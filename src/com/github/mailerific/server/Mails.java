@@ -151,7 +151,9 @@ public class Mails {
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(from));
         msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-        msg.setSubject(subject == null ? "[No Subject]" : subject);
+        msg
+                .setSubject(subject == null || subject.trim().length() == 0 ? "(no subject)"
+                        : subject);
         msg.setText(message == null ? "" : message);
         Transport.send(msg);
     }
