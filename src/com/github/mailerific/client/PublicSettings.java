@@ -155,7 +155,7 @@ public class PublicSettings extends AbstractSettings implements Settings {
             }
 
             @Override
-            public void onSuccess(final UserAccount result) {
+            public void onSuccess(final Void result) {
                 super.onSuccess(result);
                 hideNotification();
             }

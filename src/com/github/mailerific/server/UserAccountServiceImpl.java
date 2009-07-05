@@ -15,12 +15,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class UserAccountServiceImpl extends RemoteServiceServlet implements
         UserAccountService {
 
-    @Override
-    public void save(final UserAccount user) throws NotLoggedInException {
-        checkLoggedIn();
-        Users.save(user);
-    }
-
     private void checkLoggedIn() throws NotLoggedInException {
         User user = UserServiceFactory.getUserService().getCurrentUser();
         if (user == null) {
@@ -131,5 +125,12 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
             throws NotLoggedInException {
         checkLoggedIn();
         return Mails.getBySender(email);
+    }
+
+    @Override
+    public void removeUser(final Long id) throws NotLoggedInException {
+        checkLoggedIn();
+        UserAccount account = Users.getUserById(id);
+        Users.remove(account);
     }
 }

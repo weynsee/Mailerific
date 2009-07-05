@@ -58,7 +58,12 @@ public class Mails {
         query.setOrdering("id desc");
         query.declareParameters("String email");
         query.setRange(0, FETCH_MAX);
-        return (List<Mail>) pm.detachCopyAll((List<Mail>) query.execute(email));
+        return (List<Mail>) query.execute(email);
+    }
+
+    private List<Mail> findByOwnerDetached(final String email) {
+        PersistenceManager pm = Persistence.manager();
+        return (List<Mail>) pm.detachCopyAll(findByOwner(email));
     }
 
     @SuppressWarnings("unchecked")
@@ -69,7 +74,12 @@ public class Mails {
         query.setOrdering("id desc");
         query.declareParameters("String email");
         query.setRange(0, FETCH_MAX);
-        return (List<Mail>) pm.detachCopyAll((List<Mail>) query.execute(email));
+        return (List<Mail>) query.execute(email);
+    }
+
+    private List<Mail> findBySenderDetached(final String email) {
+        PersistenceManager pm = Persistence.manager();
+        return (List<Mail>) pm.detachCopyAll(findBySender(email));
     }
 
     @SuppressWarnings("unchecked")
@@ -98,10 +108,18 @@ public class Mails {
     }
 
     public static List<Mail> getByOwner(final String email) {
+        return SINGLETON.findByOwnerDetached(email);
+    }
+
+    public static List<Mail> getAttachedByOwner(final String email) {
         return SINGLETON.findByOwner(email);
     }
 
     public static List<Mail> getBySender(final String email) {
+        return SINGLETON.findBySenderDetached(email);
+    }
+
+    public static List<Mail> getAttachedBySender(final String email) {
         return SINGLETON.findBySender(email);
     }
 

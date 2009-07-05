@@ -10,8 +10,6 @@ public interface UserAccountService extends RemoteService {
 
     UserAccount authenticate(String uri);
 
-    void save(UserAccount user) throws NotLoggedInException;
-
     Boolean isUsernameUnique(Long id, String username);
 
     /*
@@ -45,5 +43,7 @@ public interface UserAccountService extends RemoteService {
             throws NotLoggedInException;
 
     List<Mail> listOutgoing(final String email) throws NotLoggedInException;
+
+    void removeUser(Long id) throws NotLoggedInException;
 
 }

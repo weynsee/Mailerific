@@ -3,16 +3,19 @@ package com.github.mailerific.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class DialogFactory {
 
     private static DialogBox SINGLETON_SUCCESS;
+    private static DialogBox SINGLETON_PROMOTE;
 
     private DialogFactory() {
     }
@@ -48,6 +51,13 @@ public class DialogFactory {
                 false, "600px");
     }
 
+    public static DialogBox createPromoteDialog() {
+        if (SINGLETON_PROMOTE == null) {
+            SINGLETON_PROMOTE = createPromoteDialogInternal();
+        }
+        return SINGLETON_PROMOTE;
+    }
+
     public static DialogBox createNotLoggedInErrorDialog() {
         return createGenericDialog("Please sign in",
                 "It looks like your session has expired. Please log-in again.",
@@ -74,9 +84,13 @@ public class DialogFactory {
         return createGenericDialog(caption, text, true, "600px");
     }
 
+    public static DialogBox createSignOutDialog(final Long id, final String url) {
+        return createSignOutDialogInternal(id, url);
+    }
+
     private static DialogBox createGenericDialog(final String caption,
             final String text, final boolean showCloseButton, final String width) {
-        final DialogBox dialogBox = new DialogBox(true);
+        final DialogBox dialogBox = new DialogBox(!showCloseButton);
         dialogBox.setText(caption);
         VerticalPanel dialogContents = new VerticalPanel();
         dialogContents.setSpacing(4);
@@ -112,4 +126,97 @@ public class DialogFactory {
         return dialogBox;
     }
 
+    private static DialogBox createPromoteDialogInternal() {
+        final DialogBox dialogBox = new DialogBox(true);
+        dialogBox.setText("Promote Mailerific!");
+        HorizontalPanel dialogContents = new HorizontalPanel();
+        dialogContents.setSpacing(10);
+        dialogBox.setWidget(dialogContents);
+
+        Label button = new Label("Tweet this!");
+        button.setStyleName("button-style");
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                Window.Location
+                        .assign("http://twitter.com?status=Try out Mailerific! http://mailerific.appspot.com");
+            }
+        });
+        DecoratorPanel buttonPanel = new DecoratorPanel();
+        buttonPanel.add(button);
+        buttonPanel.addStyleName("content-button");
+        dialogContents.add(buttonPanel);
+
+        button = new Label("Follow me on Twitter");
+        button.setStyleName("button-style");
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                Window.Location.assign("http://twitter.com/weynsee");
+            }
+        });
+        buttonPanel = new DecoratorPanel();
+        buttonPanel.add(button);
+        buttonPanel.addStyleName("content-button");
+        dialogContents.add(buttonPanel);
+
+        return dialogBox;
+    }
+
+    private static DialogBox createSignOutDialogInternal(final Long id,
+            final String logoutUrl) {
+        final DialogBox dialogBox = new DialogBox(true);
+        dialogBox.setText("Signing out");
+        VerticalPanel dialogContents = new VerticalPanel();
+        dialogContents.setSpacing(10);
+        dialogBox.setWidget(dialogContents);
+
+        HTML label = new HTML(
+                "Do you wish to sign out just from this session, or permanently?<br/> If you sign out completely, all your messages in Mailerific will be deleted.");
+        dialogContents.add(label);
+
+        HorizontalPanel buttons = new HorizontalPanel();
+        buttons.setWidth("100%");
+        buttons.setSpacing(4);
+        Label button = new Label("Don't worry, I'll be back!");
+        button.setStyleName("button-style");
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                Window.Location.assign(logoutUrl);
+            }
+        });
+
+        DecoratorPanel buttonPanel = new DecoratorPanel();
+        buttonPanel.add(button);
+        buttonPanel.addStyleName("content-button");
+        buttons.add(buttonPanel);
+        buttons.setCellHorizontalAlignment(buttonPanel,
+                HorizontalPanel.ALIGN_LEFT);
+
+        button = new Label("This isn't for me");
+        button.setStyleName("button-style");
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
+                UserAccountServiceAsync.RPC.removeUser(id,
+                        new DefaultCallback<Void>() {
+                            @Override
+                            public void onSuccess(final Void result) {
+                                Window.Location.assign(logoutUrl);
+                            }
+                        });
+            }
+        });
+        DecoratorPanel buttonPanel2 = new DecoratorPanel();
+        buttonPanel2.add(button);
+        buttonPanel2.addStyleName("content-button");
+        buttons.add(buttonPanel2);
+        buttons.setCellHorizontalAlignment(buttonPanel2,
+                HorizontalPanel.ALIGN_RIGHT);
+
+        dialogContents.add(buttons);
+
+        return dialogBox;
+    }
 }

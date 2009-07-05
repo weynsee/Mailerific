@@ -12,21 +12,18 @@ public interface UserAccountServiceAsync {
 
     void authenticate(String baseUrl, AsyncCallback<UserAccount> callback);
 
-    void save(UserAccount user, AsyncCallback<UserAccount> callback);
-
     void isUsernameUnique(Long id, String username,
             AsyncCallback<Boolean> callback);
 
-    void unmarkFirstTime(Long id, AsyncCallback<UserAccount> callback);
+    void unmarkFirstTime(Long id, AsyncCallback<Void> callback);
 
-    void saveInSettings(Long id, String subject,
-            AsyncCallback<UserAccount> callback);
+    void saveInSettings(Long id, String subject, AsyncCallback<Void> callback);
 
     void saveOutSettings(Long id, String subject, boolean includeSignature,
-            String signature, AsyncCallback<UserAccount> callback);
+            String signature, AsyncCallback<Void> callback);
 
     void savePublicSettings(Long id, boolean enable, String subject,
-            String username, AsyncCallback<UserAccount> callback);
+            String username, AsyncCallback<Void> callback);
 
     void listIncoming(final String email, final Long upperBound,
             AsyncCallback<List<Mail>> callback);
@@ -37,5 +34,7 @@ public interface UserAccountServiceAsync {
 
     void listOutgoing(final String email, Long upperBound,
             AsyncCallback<List<Mail>> callback);
+
+    void removeUser(final Long id, AsyncCallback<Void> callback);
 
 }

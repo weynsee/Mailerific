@@ -1,7 +1,7 @@
 package com.github.mailerific.client;
 
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.HTML;
 
@@ -37,8 +37,9 @@ public class Main extends Composite implements TopPanel.Handler {
 
     @Override
     public void onPromoteSelection() {
-        // TODO Auto-generated method stub
-
+        DialogBox dialog = DialogFactory.createPromoteDialog();
+        dialog.center();
+        dialog.show();
     }
 
     @Override
@@ -48,7 +49,10 @@ public class Main extends Composite implements TopPanel.Handler {
 
     @Override
     public void onSignOutSelection() {
-        Window.Location.assign(user.getLogoutUrl());
+        DialogBox dialog = DialogFactory.createSignOutDialog(user.getId(), user
+                .getLogoutUrl());
+        dialog.center();
+        dialog.show();
     }
 
 }

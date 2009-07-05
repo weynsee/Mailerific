@@ -23,7 +23,6 @@ public class Mailerific implements EntryPoint {
         root = RootPanel.get();
         UserAccountServiceAsync.RPC.authenticate(GWT.getHostPageBaseURL(),
                 new DefaultCallback<UserAccount>() {
-
                     public void onSuccess(final UserAccount result) {
                         if (result.isLoggedIn()) {
                             loadApp(result);
@@ -46,9 +45,9 @@ public class Mailerific implements EntryPoint {
             welcome.show();
             user.setFirstTimeUser(false);
             UserAccountServiceAsync.RPC.unmarkFirstTime(user.getId(),
-                    new DefaultCallback<UserAccount>() {
+                    new DefaultCallback<Void>() {
                         @Override
-                        public void onSuccess(final UserAccount result) {
+                        public void onSuccess(final Void result) {
                             // do nothing
                         }
                     });

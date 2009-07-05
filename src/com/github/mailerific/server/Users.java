@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import com.github.mailerific.client.Mail;
 import com.github.mailerific.client.UserAccount;
 
 public class Users {
@@ -63,6 +64,22 @@ public class Users {
 
     public static UserAccount save(final UserAccount user) {
         return MANAGER.saveUser(user);
+    }
+
+    public static void remove(final UserAccount user) {
+        MANAGER.removeUser(user);
+    }
+
+    private void removeUser(final UserAccount user) {
+        PersistenceManager pm = Persistence.manager();
+        List<Mail> in = Mails.getAttachedByOwner(user.getEmail());
+        List<Mail> out = Mails.getAttachedBySender(user.getEmail());
+        if (!in.isEmpty()) {
+            pm.deletePersistentAll(in);
+        }
+        if (!out.isEmpty())
+            pm.deletePersistentAll(out);
+        pm.deletePersistent(user);
     }
 
 }
