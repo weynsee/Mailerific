@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -28,6 +29,8 @@ public class Outgoing implements Serializable, Mail {
     private String recipient;
     @Persistent
     private String signature;
+    @NotPersistent
+    private String datePast;
 
     public String getMessage() {
         return message;
@@ -79,6 +82,14 @@ public class Outgoing implements Serializable, Mail {
 
     public void setSignature(final String signature) {
         this.signature = signature;
+    }
+
+    public String getDatePast() {
+        return datePast;
+    }
+
+    public void setDatePast(final String datePast) {
+        this.datePast = datePast;
     }
 
 }

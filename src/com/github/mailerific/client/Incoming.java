@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -24,6 +25,8 @@ public class Incoming implements Serializable, Mail {
     private String owner;
     @Persistent
     private String subject;
+    @NotPersistent
+    private String datePast;
 
     public String getMessage() {
         return message;
@@ -59,6 +62,14 @@ public class Incoming implements Serializable, Mail {
 
     public void setSubject(final String subject) {
         this.subject = subject;
+    }
+
+    public String getDatePast() {
+        return datePast;
+    }
+
+    public void setDatePast(final String datePast) {
+        this.datePast = datePast;
     }
 
 }

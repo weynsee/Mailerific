@@ -151,10 +151,16 @@ public class MailsPanel extends Composite implements MailList.Listener {
 
     private Widget createItem(final Mail mail) {
         DecoratorPanel item = new DecoratorPanel();
+        VerticalPanel panel = new VerticalPanel();
         Label text = new Label(mail.getMessage());
-        text.setWidth("850px");
-        text.setHeight("35px");
-        item.add(text);
+        panel.add(text);
+        Label past = new Label(mail.getDatePast());
+        past.addStyleName("past");
+        panel.add(past);
+        panel.setCellVerticalAlignment(past, VerticalPanel.ALIGN_BOTTOM);
+        panel.setWidth("850px");
+        panel.setHeight("65px");
+        item.add(panel);
         return item;
     }
 

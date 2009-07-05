@@ -1,5 +1,6 @@
 package com.github.mailerific.server;
 
+import java.util.Date;
 import java.util.List;
 
 import com.github.mailerific.client.Mail;
@@ -106,25 +107,41 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
     public List<Mail> listIncoming(final String email, final Long upperBound)
             throws NotLoggedInException {
         checkLoggedIn();
-        return Mails.getByOwner(email, upperBound);
+        List<Mail> mails = Mails.getByOwner(email, upperBound);
+        for (Mail mail : mails) {
+            mail.setDatePast(PastCalculator.diff(mail.getReceivedDate()));
+        }
+        return mails;
     }
 
     public List<Mail> listIncoming(final String email)
             throws NotLoggedInException {
         checkLoggedIn();
-        return Mails.getByOwner(email);
+        List<Mail> mails = Mails.getByOwner(email);
+        for (Mail mail : mails) {
+            mail.setDatePast(PastCalculator.diff(mail.getReceivedDate()));
+        }
+        return mails;
     }
 
     public List<Mail> listOutgoing(final String email, final Long upperBound)
             throws NotLoggedInException {
         checkLoggedIn();
-        return Mails.getBySender(email, upperBound);
+        List<Mail> mails = Mails.getBySender(email, upperBound);
+        for (Mail mail : mails) {
+            mail.setDatePast(PastCalculator.diff(mail.getReceivedDate()));
+        }
+        return mails;
     }
 
     public List<Mail> listOutgoing(final String email)
             throws NotLoggedInException {
         checkLoggedIn();
-        return Mails.getBySender(email);
+        List<Mail> mails = Mails.getBySender(email);
+        for (Mail mail : mails) {
+            mail.setDatePast(PastCalculator.diff(mail.getReceivedDate()));
+        }
+        return mails;
     }
 
     @Override
@@ -132,5 +149,41 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
         checkLoggedIn();
         UserAccount account = Users.getUserById(id);
         Users.remove(account);
+    }
+
+    private static class PastCalculator {
+        // conversion to milliseconds
+        private static final int SECONDS = 1000;
+        private static final int MINUTES = 60 * SECONDS;
+        private static final int HOURS = 60 * MINUTES;
+        private static final int DAY = 24 * 60 * 60 * 1000;
+
+        private static String diff(final Date from, final Date date) {
+            long milis1 = from.getTime();
+            long milis2 = date.getTime();
+            long diff = milis2 - milis1;
+
+            long diffDays = diff / DAY;
+            if (diffDays > 0) {
+                return diffString(diffDays, "day");
+            }
+            long diffHours = diff / HOURS;
+            if (diffHours > 0) {
+                return diffString(diffHours, "hour");
+            }
+            long diffSeconds = diff / SECONDS;
+            if (diffSeconds > 0) {
+                return diffString(diffSeconds, "second");
+            }
+            return "1 second ago"; // if we reached this, it was very recent
+        }
+
+        private static String diffString(final long duration, final String unit) {
+            return duration + " " + (duration > 1 ? unit + "s" : unit) + " ago";
+        }
+
+        private static String diff(final Date from) {
+            return diff(from, new Date());
+        }
     }
 }

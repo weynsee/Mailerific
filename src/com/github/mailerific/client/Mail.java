@@ -10,4 +10,8 @@ public interface Mail {
 
     Date getReceivedDate();
 
+    void setDatePast(String date);
+
+    String getDatePast();
+
 }
