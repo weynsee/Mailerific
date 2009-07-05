@@ -171,6 +171,10 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
             if (diffHours > 0) {
                 return diffString(diffHours, "hour");
             }
+            long diffMinutes = diff / MINUTES;
+            if (diffMinutes > 0) {
+                return diffString(diffMinutes, "minute");
+            }
             long diffSeconds = diff / SECONDS;
             if (diffSeconds > 0) {
                 return diffString(diffSeconds, "second");
