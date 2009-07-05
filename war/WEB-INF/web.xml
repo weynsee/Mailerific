@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <welcome-file-list>
+    <welcome-file>Mailerific.html</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>userService</servlet-name>
+    <servlet-class>com.github.mailerific.server.UserAccountServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>userService</servlet-name>
+    <url-pattern>/mailerific/services/user</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>inServlet</servlet-name>
+    <servlet-class>com.github.mailerific.server.InServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>inServlet</servlet-name>
+    <url-pattern>/i/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>outServlet</servlet-name>
+    <servlet-class>com.github.mailerific.server.OutServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>outServlet</servlet-name>
+    <url-pattern>/o/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>publicServlet</servlet-name>
+    <servlet-class>com.github.mailerific.server.PublicServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>publicServlet</servlet-name>
+    <url-pattern>/p/*</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+  	<filter-name>persistenceFilter</filter-name>
+  	<filter-class>com.github.mailerific.server.PersistenceFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>persistenceFilter</filter-name>
+  	<url-pattern>/mailerific/services/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>persistenceFilter</filter-name>
+  	<url-pattern>/i/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>persistenceFilter</filter-name>
+  	<url-pattern>/o/*</url-pattern>
+  </filter-mapping>
+  
+  <filter-mapping>
+  	<filter-name>persistenceFilter</filter-name>
+  	<url-pattern>/p/*</url-pattern>
+  </filter-mapping>
+  
+  <error-page>
+	<error-code>403</error-code>
+	<location>/WEB-INF/403.jsp </location>
+  </error-page>
+  
+  <error-page>
+	<error-code>404</error-code>
+	<location>/WEB-INF/404.jsp </location>
+  </error-page>
+  
+  <error-page>
+	<error-code>500</error-code>
+	<location>/WEB-INF/500.jsp </location>
+  </error-page>  
+  
+</web-app>
