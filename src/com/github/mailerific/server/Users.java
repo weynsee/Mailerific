@@ -29,9 +29,10 @@ public class Users {
     @SuppressWarnings("unchecked")
     private UserAccount findByUsername(final String username) {
         PersistenceManager pm = Persistence.manager();
-        Query query = pm.newQuery(UserAccount.class, "username == name");
+        Query query = pm.newQuery(UserAccount.class, "usernameUpper == name");
         query.declareParameters("String name");
-        List<UserAccount> list = (List<UserAccount>) query.execute(username);
+        List<UserAccount> list = (List<UserAccount>) query.execute(username
+                .toUpperCase());
         if (list.size() > 0)
             return list.get(0);
         else

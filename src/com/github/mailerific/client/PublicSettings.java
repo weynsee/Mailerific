@@ -120,8 +120,10 @@ public class PublicSettings extends AbstractSettings implements Settings {
     }
 
     private void showNotification(final Label label) {
-        hideNotification();
-        label.setVisible(true);
+        if (!label.isVisible()) {
+            hideNotification();
+            label.setVisible(true);
+        }
         notification.setOpen(true);
     }
 

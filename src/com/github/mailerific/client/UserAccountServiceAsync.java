@@ -10,8 +10,7 @@ public interface UserAccountServiceAsync {
     public static UserAccountServiceAsync RPC = GWT
             .create(UserAccountService.class);
 
-    void authenticate(String baseUrl, String loginPath,
-            AsyncCallback<UserAccount> callback);
+    void authenticate(String baseUrl, AsyncCallback<UserAccount> callback);
 
     void save(UserAccount user, AsyncCallback<UserAccount> callback);
 

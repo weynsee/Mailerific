@@ -36,6 +36,9 @@ public class UserAccount implements Serializable {
     private boolean enablePublic;
     @Persistent
     private String username;
+    @SuppressWarnings("unused")
+    @Persistent
+    private String usernameUpper; // only used internally in the DB
     @NotPersistent
     private String nickname;
     @NotPersistent
@@ -44,8 +47,6 @@ public class UserAccount implements Serializable {
     private String logoutUrl;
     @NotPersistent
     private boolean loggedIn;
-    @NotPersistent
-    private boolean mailerificUser;
 
     public Long getId() {
         return this.id;
@@ -129,6 +130,7 @@ public class UserAccount implements Serializable {
 
     public void setUsername(final String username) {
         this.username = username;
+        this.usernameUpper = username.toUpperCase();
     }
 
     public String getLoginUrl() {
@@ -153,14 +155,6 @@ public class UserAccount implements Serializable {
 
     public void setLoggedIn(final boolean loggedIn) {
         this.loggedIn = loggedIn;
-    }
-
-    public boolean isMailerificUser() {
-        return mailerificUser;
-    }
-
-    public void setMailerificUser(final boolean mailerificUser) {
-        this.mailerificUser = mailerificUser;
     }
 
 }

@@ -22,16 +22,11 @@ public class Mailerific implements EntryPoint {
     public void onModuleLoad() {
         root = RootPanel.get();
         UserAccountServiceAsync.RPC.authenticate(GWT.getHostPageBaseURL(),
-                "mailerific/services/login",
                 new DefaultCallback<UserAccount>() {
 
                     public void onSuccess(final UserAccount result) {
                         if (result.isLoggedIn()) {
-                            if (result.isMailerificUser()) {
-                                loadApp(result);
-                            } else {
-                                loadTitlePage(result.getLoginUrl());
-                            }
+                            loadApp(result);
                         } else {
                             loadTitlePage(result.getLoginUrl());
                         }

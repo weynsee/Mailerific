@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("services/user")
 public interface UserAccountService extends RemoteService {
 
-    UserAccount authenticate(String baseUrl, String loginPath);
+    UserAccount authenticate(String uri);
 
     void save(UserAccount user) throws NotLoggedInException;
 

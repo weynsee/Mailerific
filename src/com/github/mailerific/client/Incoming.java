@@ -21,13 +21,9 @@ public class Incoming implements Serializable, Mail {
     @Persistent
     private Date receivedDate;
     @Persistent
-    private Date mailedDate;
-    @Persistent
     private String owner;
     @Persistent
     private String subject;
-    @Persistent
-    private boolean mailSent;
 
     public String getMessage() {
         return message;
@@ -43,14 +39,6 @@ public class Incoming implements Serializable, Mail {
 
     public void setReceivedDate(final Date receivedDate) {
         this.receivedDate = receivedDate;
-    }
-
-    public Date getMailedDate() {
-        return mailedDate;
-    }
-
-    public void setMailedDate(final Date mailedDate) {
-        this.mailedDate = mailedDate;
     }
 
     public Long getId() {
@@ -71,14 +59,6 @@ public class Incoming implements Serializable, Mail {
 
     public void setSubject(final String subject) {
         this.subject = subject;
-    }
-
-    public boolean isMailSent() {
-        return mailSent;
-    }
-
-    public void setMailSent(final boolean mailSent) {
-        this.mailSent = mailSent;
     }
 
 }

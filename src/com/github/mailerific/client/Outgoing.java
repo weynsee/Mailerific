@@ -13,8 +13,6 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Outgoing implements Serializable, Mail {
 
-    public static final int MAX_RETRY = 5;
-
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Long id;
@@ -23,17 +21,11 @@ public class Outgoing implements Serializable, Mail {
     @Persistent
     private Date receivedDate;
     @Persistent
-    private Date mailedDate;
-    @Persistent
     private String sender;
     @Persistent
     private String subject;
     @Persistent
-    private int retryCount;
-    @Persistent
     private String recipient;
-    @Persistent
-    private boolean mailSent;
     @Persistent
     private String signature;
 
@@ -53,14 +45,6 @@ public class Outgoing implements Serializable, Mail {
         this.receivedDate = receivedDate;
     }
 
-    public Date getMailedDate() {
-        return mailedDate;
-    }
-
-    public void setMailedDate(final Date mailedDate) {
-        this.mailedDate = mailedDate;
-    }
-
     public String getSender() {
         return sender;
     }
@@ -77,14 +61,6 @@ public class Outgoing implements Serializable, Mail {
         this.subject = subject;
     }
 
-    public int getRetryCount() {
-        return retryCount;
-    }
-
-    public void setRetryCount(final int mailRetryCount) {
-        this.retryCount = mailRetryCount;
-    }
-
     public String getRecipient() {
         return recipient;
     }
@@ -95,14 +71,6 @@ public class Outgoing implements Serializable, Mail {
 
     public Long getId() {
         return id;
-    }
-
-    public boolean isMailSent() {
-        return mailSent;
-    }
-
-    public void setMailSent(final boolean mailSent) {
-        this.mailSent = mailSent;
     }
 
     public String getSignature() {

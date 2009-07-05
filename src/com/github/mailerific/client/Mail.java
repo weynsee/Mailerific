@@ -10,8 +10,4 @@ public interface Mail {
 
     Date getReceivedDate();
 
-    Date getMailedDate();
-
-    boolean isMailSent();
-
 }

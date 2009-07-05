@@ -67,9 +67,6 @@ public class OutServlet extends SecureServlet {
         outgoing.setSender(user.getEmail());
         outgoing.setSubject(user.getOutSubject());
         outgoing.setRecipient(recipient);
-        if (recipient == null || recipient.isEmpty()) {
-            outgoing.setRetryCount(Outgoing.MAX_RETRY);
-        }
         if (user.isOutIncludeSig()) {
             outgoing.setSignature(user.getOutSignature());
         }

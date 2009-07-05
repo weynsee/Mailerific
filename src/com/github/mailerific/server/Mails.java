@@ -119,7 +119,7 @@ public class Mails {
             MessagingException {
         send(mail.getSender(), mail.getRecipient(), mail.getSubject(), mail
                 .getMessage()
-                + "\n\n" + mail.getSignature());
+                + "\n\n\n" + mail.getSignature());
     }
 
     private static void send(final String from, final String to,

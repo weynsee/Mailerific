@@ -29,7 +29,7 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
     }
 
     @Override
-    public UserAccount authenticate(final String baseUrl, final String loginPath) {
+    public UserAccount authenticate(final String uri) {
         UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         UserAccount userAccount;
@@ -37,22 +37,26 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
             // has google account, now check for Mailerific account
             userAccount = Users.getUserByEmail(user.getEmail());
             if (userAccount == null) {
-                userAccount = new UserAccount();
-                userAccount.setMailerificUser(false);
-            } else {
-                userAccount.setNickname(user.getNickname());
-                userAccount.setMailerificUser(true);
+                // if no Mailerific account, sign him up
+                userAccount = signUp(user);
             }
+            userAccount.setNickname(user.getNickname());
             userAccount.setLoggedIn(true);
-            userAccount.setLogoutUrl(userService.createLogoutURL(baseUrl));
+            userAccount.setLogoutUrl(userService.createLogoutURL(uri));
         } else {
             userAccount = new UserAccount();
             // not logged in to google, redirect to login page
             userAccount.setLoggedIn(false);
-            userAccount.setLoginUrl(userService.createLoginURL(baseUrl
-                    + loginPath));
+            userAccount.setLoginUrl(userService.createLoginURL(uri));
         }
         return userAccount;
+    }
+
+    private UserAccount signUp(final User user) {
+        UserAccount account = new UserAccount();
+        account.setFirstTimeUser(true);
+        account.setEmail(user.getEmail());
+        return Users.save(account);
     }
 
     @Override
