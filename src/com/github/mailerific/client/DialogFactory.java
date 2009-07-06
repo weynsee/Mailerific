@@ -30,7 +30,7 @@ public class DialogFactory {
             + GWT.getHostPageBaseURL()
             + "i/Feed the cat after reading this!</div>"
             + "<p>An e-mail will be  automatically sent to your GMail account. That's it, no set-up"
-            + " necessary.</p><p>In addition to reminders, you can also send e-mails to other e-mail accounts.</p>"
+            + " necessary.</p><p>In addition to reminders, you can also send e-mails to other e-mail accounts:</p>"
             + "<div>"
             + GWT.getHostPageBaseURL()
             + "o/john@example.com/Hey John! Let's meet up this friday!</div>"
@@ -196,13 +196,16 @@ public class DialogFactory {
 
         button = new Label("Sign me out forever!");
         button.setStyleName("button-style");
+        final LoadingPopup loading = new LoadingPopup();
         button.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
+                loading.show();
                 UserAccountServiceAsync.RPC.removeUser(id,
                         new DefaultCallback<Void>() {
                             @Override
                             public void onSuccess(final Void result) {
+                                loading.hide();
                                 Window.Location.assign(logoutUrl);
                             }
                         });

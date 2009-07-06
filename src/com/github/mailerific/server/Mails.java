@@ -58,12 +58,16 @@ public class Mails {
         query.setOrdering("id desc");
         query.declareParameters("String email");
         query.setRange(0, FETCH_MAX);
-        return (List<Mail>) query.execute(email);
+        return (List<Mail>) pm.detachCopyAll((List<Mail>) query.execute(email));
     }
 
-    private List<Mail> findByOwnerDetached(final String email) {
+    @SuppressWarnings("unchecked")
+    private List<Mail> findAllByOwner(final String email) {
         PersistenceManager pm = Persistence.manager();
-        return (List<Mail>) pm.detachCopyAll(findByOwner(email));
+        Query query = pm.newQuery(Incoming.class);
+        query.setFilter("owner == email");
+        query.declareParameters("String email");
+        return (List<Mail>) query.execute(email);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,12 +78,16 @@ public class Mails {
         query.setOrdering("id desc");
         query.declareParameters("String email");
         query.setRange(0, FETCH_MAX);
-        return (List<Mail>) query.execute(email);
+        return (List<Mail>) pm.detachCopyAll((List<Mail>) query.execute(email));
     }
 
-    private List<Mail> findBySenderDetached(final String email) {
+    @SuppressWarnings("unchecked")
+    private List<Mail> findAllBySender(final String email) {
         PersistenceManager pm = Persistence.manager();
-        return (List<Mail>) pm.detachCopyAll(findBySender(email));
+        Query query = pm.newQuery(Outgoing.class);
+        query.setFilter("sender == email");
+        query.declareParameters("String email");
+        return (List<Mail>) query.execute(email);
     }
 
     @SuppressWarnings("unchecked")
@@ -108,19 +116,19 @@ public class Mails {
     }
 
     public static List<Mail> getByOwner(final String email) {
-        return SINGLETON.findByOwnerDetached(email);
-    }
-
-    public static List<Mail> getAttachedByOwner(final String email) {
         return SINGLETON.findByOwner(email);
     }
 
-    public static List<Mail> getBySender(final String email) {
-        return SINGLETON.findBySenderDetached(email);
+    public static List<Mail> getAllByOwner(final String email) {
+        return SINGLETON.findAllByOwner(email);
     }
 
-    public static List<Mail> getAttachedBySender(final String email) {
+    public static List<Mail> getBySender(final String email) {
         return SINGLETON.findBySender(email);
+    }
+
+    public static List<Mail> getAllBySender(final String email) {
+        return SINGLETON.findAllBySender(email);
     }
 
     public static List<Mail> getBySender(final String email,

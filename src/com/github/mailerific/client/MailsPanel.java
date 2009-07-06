@@ -22,6 +22,7 @@ public class MailsPanel extends Composite implements MailList.Listener {
     private final MailList outgoing;
     private final HorizontalPanel bottomPanel;
     private final DecoratorPanel prev, next;
+    private final LoadingPopup loading;
 
     public MailsPanel(final UserAccount user) {
         incoming = new MailList(user, MailList.INCOMING, this);
@@ -52,6 +53,7 @@ public class MailsPanel extends Composite implements MailList.Listener {
         refreshLabel.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
+                loading.showDelayed();
                 mailList.reset();
                 mailList.nextPage();
             }
@@ -72,6 +74,7 @@ public class MailsPanel extends Composite implements MailList.Listener {
         prevLabel.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
+                loading.showDelayed();
                 mailList.previousPage();
             }
         });
@@ -86,6 +89,7 @@ public class MailsPanel extends Composite implements MailList.Listener {
         nextLabel.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(final ClickEvent event) {
+                loading.showDelayed();
                 mailList.nextPage();
             }
         });
@@ -106,6 +110,7 @@ public class MailsPanel extends Composite implements MailList.Listener {
         decorator.add(main);
         decorator.setWidth("100%");
         decorator.addStyleName("content-form");
+        loading = new LoadingPopup();
         initWidget(decorator);
         DeferredCommand.addCommand(new Command() {
             @Override
@@ -147,6 +152,7 @@ public class MailsPanel extends Composite implements MailList.Listener {
             panel.add(message);
             list.add(message);
         }
+        loading.hide();
     }
 
     private Widget createItem(final Mail mail) {

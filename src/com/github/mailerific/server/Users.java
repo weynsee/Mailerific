@@ -72,8 +72,8 @@ public class Users {
 
     private void removeUser(final UserAccount user) {
         PersistenceManager pm = Persistence.manager();
-        List<Mail> in = Mails.getAttachedByOwner(user.getEmail());
-        List<Mail> out = Mails.getAttachedBySender(user.getEmail());
+        List<Mail> in = Mails.getAllByOwner(user.getEmail());
+        List<Mail> out = Mails.getAllBySender(user.getEmail());
         if (!in.isEmpty()) {
             pm.deletePersistentAll(in);
         }
