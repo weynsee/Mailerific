@@ -148,7 +148,8 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
     public void removeUser(final Long id) throws NotLoggedInException {
         checkLoggedIn();
         UserAccount account = Users.getUserById(id);
-        Users.remove(account);
+        if (account != null)
+            Users.remove(account);
     }
 
     private static class PastCalculator {
