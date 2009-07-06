@@ -84,8 +84,9 @@ public class DialogFactory {
         return createGenericDialog(caption, text, true, "600px");
     }
 
-    public static DialogBox createSignOutDialog(final Long id, final String url) {
-        return createSignOutDialogInternal(id, url);
+    public static DialogBox createSignOutDialog(final String email,
+            final String url) {
+        return createSignOutDialogInternal(email, url);
     }
 
     private static DialogBox createGenericDialog(final String caption,
@@ -163,7 +164,7 @@ public class DialogFactory {
         return dialogBox;
     }
 
-    private static DialogBox createSignOutDialogInternal(final Long id,
+    private static DialogBox createSignOutDialogInternal(final String email,
             final String logoutUrl) {
         final DialogBox dialogBox = new DialogBox(true);
         dialogBox.setText("Signing out");
@@ -201,7 +202,7 @@ public class DialogFactory {
             @Override
             public void onClick(final ClickEvent event) {
                 loading.show();
-                UserAccountServiceAsync.RPC.removeUser(id,
+                UserAccountServiceAsync.RPC.removeUser(email,
                         new DefaultCallback<Void>() {
                             @Override
                             public void onSuccess(final Void result) {

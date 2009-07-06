@@ -145,9 +145,9 @@ public class UserAccountServiceImpl extends RemoteServiceServlet implements
     }
 
     @Override
-    public void removeUser(final Long id) throws NotLoggedInException {
+    public void removeUser(final String email) throws NotLoggedInException {
         checkLoggedIn();
-        UserAccount account = Users.getUserById(id);
+        UserAccount account = Users.getUserByEmail(email);
         if (account != null)
             Users.remove(account);
     }

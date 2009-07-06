@@ -49,8 +49,8 @@ public class Main extends Composite implements TopPanel.Handler {
 
     @Override
     public void onSignOutSelection() {
-        DialogBox dialog = DialogFactory.createSignOutDialog(user.getId(), user
-                .getLogoutUrl());
+        DialogBox dialog = DialogFactory.createSignOutDialog(user.getEmail(),
+                user.getLogoutUrl());
         dialog.center();
         dialog.show();
     }

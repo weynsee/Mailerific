@@ -35,6 +35,6 @@ public interface UserAccountServiceAsync {
     void listOutgoing(final String email, Long upperBound,
             AsyncCallback<List<Mail>> callback);
 
-    void removeUser(final Long id, AsyncCallback<Void> callback);
+    void removeUser(final String email, AsyncCallback<Void> callback);
 
 }

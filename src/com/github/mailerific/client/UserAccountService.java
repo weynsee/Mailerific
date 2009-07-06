@@ -44,6 +44,6 @@ public interface UserAccountService extends RemoteService {
 
     List<Mail> listOutgoing(final String email) throws NotLoggedInException;
 
-    void removeUser(Long id) throws NotLoggedInException;
+    void removeUser(String email) throws NotLoggedInException;
 
 }
