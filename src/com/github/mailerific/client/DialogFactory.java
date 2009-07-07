@@ -169,17 +169,17 @@ public class DialogFactory {
         final DialogBox dialogBox = new DialogBox(true);
         dialogBox.setText("Signing out");
         VerticalPanel dialogContents = new VerticalPanel();
-        dialogContents.setSpacing(10);
+        dialogContents.setSpacing(5);
         dialogBox.setWidget(dialogContents);
 
         HTML label = new HTML(
-                "Do you wish to sign out just from this session, or permanently?<br/> If you sign out completely, all your messages in Mailerific will be deleted.");
+                "Do you wish to sign out just from this session, or permanently?<br/> If you sign out permanently, all your messages in Mailerific will be deleted.");
         dialogContents.add(label);
 
         HorizontalPanel buttons = new HorizontalPanel();
         buttons.setWidth("100%");
         buttons.setSpacing(4);
-        Label button = new Label("Don't worry, I'll be back!");
+        Label button = new Label("Just for this session!");
         button.setStyleName("button-style");
         button.addClickHandler(new ClickHandler() {
             @Override
