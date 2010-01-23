@@ -17,7 +17,8 @@ import com.github.mailerific.client.UserAccount;
 
 public class PublicServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(PublicServlet.class
+	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = Logger.getLogger(PublicServlet.class
             .getName());
 
     @Override

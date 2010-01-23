@@ -16,7 +16,8 @@ import com.github.mailerific.client.UserAccount;
 
 public class InServlet extends SecureServlet {
 
-    private static final Logger LOG = Logger.getLogger(InServlet.class
+	private static final long serialVersionUID = 1L;
+	private static final Logger LOG = Logger.getLogger(InServlet.class
             .getName());
 
     @Override

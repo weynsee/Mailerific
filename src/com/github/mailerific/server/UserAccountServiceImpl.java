@@ -16,7 +16,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class UserAccountServiceImpl extends RemoteServiceServlet implements
         UserAccountService {
 
-    private void checkLoggedIn() throws NotLoggedInException {
+	private static final long serialVersionUID = 1L;
+
+	private void checkLoggedIn() throws NotLoggedInException {
         User user = UserServiceFactory.getUserService().getCurrentUser();
         if (user == null) {
             throw new NotLoggedInException("Not logged in.");

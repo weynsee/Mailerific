@@ -14,7 +14,9 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public abstract class SecureServlet extends HttpServlet {
 
-    @Override
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected void service(final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException,
             IOException {
